@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>SASA MATHZINE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 예쁜 한글 폰트: Noto Sans KR + 타이틀용 Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #b8e9ff;
+      color: #111827;
+    }
+
+    /* 위쪽 첫 번째 띠: 로고 + 타이틀 영역 */
+    header {
+      background: #b8e9ff;
+      padding: 14px 0 18px;
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 12px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      height: 60px;
+      display: block;
+      cursor: pointer;
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .site-title {
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: #0f172a;
+      text-transform: uppercase;
+    }
+
+    /* 두 번째 띠: 과목 버튼 */
+    .icon-bar {
+      background: #e6f6ff;
+      padding: 10px 0;
+      min-height: 40px;
+    }
+
+    .icon-bar-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      position: relative;
+    }
+
+    .icon-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* 메인 영역 */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 16px 0;
+    }
+
+    .view-section {
+      width: 96%;
+      margin: 16px auto 0;
+    }
+
+    /* 과목 아이콘 스타일 */
+    .subject-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #8fd4ff;
+      background: #ffffff;
+      color: #05527a;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+    }
+
+    .subject-icon:hover {
+      background: #f0fbff;
+    }
+
+    .subject-icon.active {
+      background: #0ea5e9;
+      color: #ffffff;
+      border-color: #0ea5e9;
+    }
+
+    /* 소개 문구 박스 */
+    .intro-text {
+      background: #e6f6ff;
+      border-radius: 12px;
+      padding: 20px 18px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      text-align: center;
+      width: 100%;
+      margin: 12px auto 0;
+    }
+
+    .intro-text strong {
+      font-size: 1.05rem;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    /* 오늘의 기사 섹션 */
+    .today-article {
+      background: #e6f6ff;
+      border-radius: 12px;
+      padding: 18px 18px 22px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1);
+      width: 100%;
+      margin: 16px auto 0;
+      text-align: center;
+    }
+
+    .article-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .article-body {
+      font-size: 0.93rem;
+      line-height: 1.7;
+      margin-top: 8px;
+      white-space: pre-line;
+      max-width: 900px;
+      margin: 8px auto 0;
+      text-align: left;
+    }
+
+    .article-image {
+      width: 100%;
+      max-width: 700px;
+      display: block;
+      margin: 0 auto 8px;
+      border-radius: 10px;
+    }
+
+    .article-caption {
+      font-size: 0.7rem;
+      line-height: 1.3;
+      color: #6b7280;
+      max-width: 900px;
+      margin: 4px auto 10px;
+      text-align: center;
+    }
+
+    .article-body em {
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* 오늘의 퀴즈 섹션 */
+    .today-problem {
+      background: #e6f6ff;
+      border-radius: 12px;
+      padding: 18px 18px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1);
+      width: 100%;
+      margin: 16px auto 0;
+    }
+
+    .problem-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+
+    .problem-meta {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .answer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      align-items: center;
+    }
+
+    .answer-input {
+      flex: 0 0 160px;
+      max-width: 200px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.9rem;
+    }
+
+    .answer-button {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: none;
+      background: #38bdf8;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .answer-button:hover {
+      background: #0ea5e9;
+    }
+
+    .answer-feedback {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .answer-feedback.correct {
+      color: #16a34a;
+    }
+
+    .answer-feedback.wrong {
+      color: #dc2626;
+    }
+
+    /* 공통 카드 */
+    .toc-section {
+      background: #e6f6ff;
+      border-radius: 12px;
+      padding: 18px 18px 22px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1);
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .toc-description {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 10px;
+    }
+
+    .home-link-hint {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    /* 목차 단원 카드 (세로배치 공통) */
+    .toc-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .unit-card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid #bae6fd;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #0f172a;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+    }
+
+    .unit-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.18);
+      background: #f0f9ff;
+    }
+
+    /* 단원 내용 큰 박스 (연한 파란색) */
+    .unit-full-box {
+      background: #e6f6ff;
+      border-radius: 12px;
+      padding: 40px 24px;
+      min-height: 260px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0f172a;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* 제작자 정보 카드 (홈 화면 맨 아래) */
+    .creator-card {
+      background: #e6f6ff;
+      border-radius: 12px;
+      padding: 18px 18px 18px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1);
+      width: 100%;
+      margin: 16px auto 4px;
+      font-size: 0.9rem;
+    }
+
+    .creator-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .creator-label {
+      width: 60px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .creator-value {
+      flex: 1;
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <img id="site-logo" src="sasa-logo.png" alt="세종과학예술영재학교 로고" class="logo" />
+      <div class="site-title">SASA MATHZINE</div>
+    </div>
+  </header>
+
+  <div class="icon-bar">
+    <div class="icon-bar-inner">
+      <div class="icon-buttons">
+        <button id="btn-home"    class="subject-icon active" type="button">홈</button>
+        <button id="btn-math1"   class="subject-icon" type="button">수학Ⅰ</button>
+        <button id="btn-math2"   class="subject-icon" type="button">수학Ⅱ</button>
+        <button id="btn-math3"   class="subject-icon" type="button">수학Ⅲ</button>
+        <button id="btn-math4"   class="subject-icon" type="button">수학Ⅳ</button>
+        <button id="btn-prob"    class="subject-icon" type="button">확률과 통계</button>
+        <button id="btn-calcgeo" class="subject-icon" type="button">미적분과 해석기하학</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- 홈 화면 -->
+    <div id="home-view" class="view-section">
+      <div class="intro-text">
+        <strong>SASA MATHZINE</strong>은 세종과학예술영재학교 학생들과 수학을 사랑하는 모든 학생들을 위해 만든 온라인 수학 노트입니다.<br>
+        이 사이트는 “정답만 빨리 찾는 공부”가 아니라, 왜 이런 정의를 쓰는지, 어떻게 생각을 확장할 수 있는지를 함께 고민하는 것을 목표로 하며,<br>
+        오늘의 문제, 단원별 개념 정리, 간단한 확인 문제를 통해 스스로 이해한 내용을 점검하고, 친구들과 함께 참고할 수 있는 우리 학교의<br>
+        온라인 수학 신문 및 자료실이 되는 것을 꿈꿉니다.
+      </div>
+
+      <!-- 오늘의 신문 -->
+      <div class="today-article">
+        <div class="section-title">오늘의 신문</div>
+        <div class="article-title">포아송 분포로 보는 첼시 한 경기 득점 수</div>
+        <div class="article-body">
+<img src="chelsea.png" alt="첼시 선수들이 골을 넣고 함께 환호하는 장면" class="article-image">
+
+<div class="article-caption">
+  첼시의 리암 델랍이 골을 넣은 뒤 동료 엔조 페르난데스와 함께 환호하는 모습 — 출처:
+  <a href="https://www.chelseafc.com/en/news/article/analysed-how-blues-asserted-dominance-to-blow-barcelona-away"
+     target="_blank" rel="noopener noreferrer">
+    Chelsea FC 공식 홈페이지
+  </a>
+</div>
+
+축구를 보기 전에 우리는 늘 이런 생각을 한다.
+“오늘 첼시, 몇 골이나 넣을까?”
+
+보통은 감으로 “한 골은 넣겠지”, “요즘 폼 좋으니까 두 골?” 이렇게 예상하지만, 수학에서는 이 질문을 조금 더 체계적으로 다룰 수 있다.
+바로 <em>포아송 분포(Poisson distribution)</em>라는 확률 모형을 이용하는 것이다.
+────────────────────────────────────────────────────────────────────
+1. 첼시의 득점을 확률변수로 보기
+────────────────────────────────────────────────────────────────────
+
+첼시가 한 경기에서 넣는 골의 개수를 X라고 두자. 그러면 X는 0골, 1골, 2골, 3골, … 같은 값을 가질 수 있다.
+
+포아송 분포 모형에서는
+“일정한 시간 동안 어떤 사건이 몇 번 일어나는지”를 다룬다. 예를 들어,
+- 1시간 동안 오는 전화의 개수
+- 하루 동안 들어오는 손님의 수
+를 모델링할 때 자주 쓰이는데,
+여기에 “한 경기에서 들어가는 골의 개수”를 대입해 볼 수 있는 것이다.
+
+포아송 분포는 하나의 숫자 λ(람다)로 결정된다. 이 λ는 <em>평균 발생 횟수</em>, 여기서는 <em>경기당 평균 득점</em>을 의미한다.
+
+────────────────────────────────────────────────────────────────────
+2. 최근 기록으로 λ 추정하기
+────────────────────────────────────────────────────────────────────
+
+이제 실제 숫자를 넣어보자. 첼시는 프리미어리그에서 최근 12경기 동안 총 23골을 넣었다.
+그렇다면 경기당 평균 득점은
+  λ = 23 / 12 ≈ 1.92가 된다.
+포아송 모형에서는 이 λ를 그대로 “다음 경기에서의 <em>기대 득점</em>”으로 본다. 즉, 이 단순한 모델 안에서는
+첼시의 다음 경기 기대득점이 약 1.9골이라고 할 수 있다.
+
+────────────────────────────────────────────────────────────────────
+3. 0골, 1골, 2골 넣을 확률은?
+────────────────────────────────────────────────────────────────────
+포아송 분포에서는
+“정확히 k골 넣을 확률”이 다음과 같은 식으로 주어진다.
+
+  P(X = k) = (λ^k · e^(−λ)) / k!
+
+여기서 e는 자연상수, k!는 k의 팩토리얼이다. λ = 1.92를 넣고 0골, 1골, 2골에 대해 계산해 보면 대략 다음과 같은 값이 나온다.
+
+- 0골 넣을 확률: 약 15%
+- 1골 넣을 확률: 약 28%
+- 2골 넣을 확률: 약 27%
+- 3골 넣을 확률: 약 17% 정도
+
+이 숫자들을 보면, “다음 경기에서 첼시가 1골이나 2골 넣을 가능성이 가장 크고, 3골 넣을 가능성도 어느 정도 있다” 라고 해석할 수 있다.
+또한 “2골 이상 넣을 확률”은 0골, 1골의 확률을 빼고 계산하면 약 57% 정도가 된다.
+
+물론 실제 축구 경기는 이렇게 단순하지 않다. 상대 팀의 전력, 홈/원정, 부상 선수, 전술 변화 같은 요소들이
+득점에 큰 영향을 미친다. 즉 포아송 분포 하나로 축구를 “정확히 예측”할 수는 없다는 것이다.
+
+하지만 중요한 점은, 득점 수를 평균 득점에서 확률을 계산해 본다는 관점 자체이다.
+수학적으로 축구 경기를 바라보는 또 하나의 시각이 될 수 있다는 사실은 축구 경기를 더욱 흥미롭게 만든다.
+        </div>
+      </div>
+
+      <!-- 오늘의 퀴즈 -->
+      <div class="today-problem">
+        <div class="section-title">오늘의 퀴즈</div>
+        <div class="problem-text">
+          함수 y = 2x + 1 에서, x = 3 일 때 함수값을 구하시오.
+        </div>
+
+        <div class="answer-row">
+          <input
+            id="answer-input"
+            class="answer-input"
+            type="text"
+            placeholder="여기에 답을 입력하세요"
+          >
+          <button class="answer-button" type="button" onclick="checkAnswer()">
+            정답 확인
+          </button>
+        </div>
+        <div id="answer-feedback" class="answer-feedback"></div>
+
+        <div class="problem-meta"></div>
+      </div>
+
+      <!-- 제작자 정보 카드 -->
+      <div class="creator-card">
+        <div class="section-title">제작자 정보</div>
+        <div class="creator-row">
+          <div class="creator-label">이름</div>
+          <div class="creator-value">김우진</div>
+        </div>
+        <div class="creator-row">
+          <div class="creator-label">소속</div>
+          <div class="creator-value">세종과학예술영재학교</div>
+        </div>
+        <div class="creator-row">
+          <div class="creator-label">메일</div>
+          <div class="creator-value">kwoojin@sasa.hs.kr</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 수학Ⅰ: 목차 -->
+    <div id="math1-toc-view" class="view-section" style="display:none;">
+      <div class="toc-section">
+        <div class="section-title">수학Ⅰ 목차</div>
+        <div class="toc-description">
+          수학Ⅰ에서 다루는 단원을 정리해 두는 공간입니다. 각 단원을 클릭하면 메인 화면이 각 단원의 내용이 정리된 화면으로 바뀝니다.
+        </div>
+
+        <div class="toc-grid">
+          <div class="unit-card">1단원</div>
+          <div class="unit-card">2단원</div>
+          <div class="unit-card">3단원</div>
+          <div class="unit-card">4단원</div>
+          <div class="unit-card">5단원</div>
+          <div class="unit-card">6단원</div>
+          <div class="unit-card">7단원</div>
+          <div class="unit-card">8단원</div>
+        </div>
+
+        <div class="home-link-hint">※ 위의 버튼을 눌러 다른 과목이나 홈 화면으로 이동할 수 있습니다.</div>
+      </div>
+    </div>
+
+    <!-- 수학Ⅰ: 단원 내용 -->
+    <div id="math1-unit-view" class="view-section" style="display:none;">
+      <div id="math1-unit-box" class="unit-full-box">
+        내용
+      </div>
+    </div>
+
+    <!-- 수학Ⅱ: 목차 -->
+    <div id="math2-toc-view" class="view-section" style="display:none;">
+      <div class="toc-section">
+        <div class="section-title">수학Ⅱ 목차</div>
+        <div class="toc-description">
+          수학Ⅱ에서 다루는 단원을 정리해 두는 공간입니다. 각 단원을 클릭하면 메인 화면이 각 단원의 내용이 정리된 화면으로 바뀝니다.
+        </div>
+
+        <div class="toc-grid">
+          <div class="unit-card">1단원</div>
+          <div class="unit-card">2단원</div>
+          <div class="unit-card">3단원</div>
+          <div class="unit-card">4단원</div>
+          <div class="unit-card">5단원</div>
+          <div class="unit-card">6단원</div>
+          <div class="unit-card">7단원</div>
+          <div class="unit-card">8단원</div>
+        </div>
+
+        <div class="home-link-hint">※ 위의 버튼을 눌러 다른 과목이나 홈 화면으로 이동할 수 있습니다.</div>
+      </div>
+    </div>
+
+    <!-- 수학Ⅱ: 단원 내용 -->
+    <div id="math2-unit-view" class="view-section" style="display:none;">
+      <div id="math2-unit-box" class="unit-full-box">
+        내용
+      </div>
+    </div>
+
+    <!-- 수학Ⅲ: 목차 -->
+    <div id="math3-toc-view" class="view-section" style="display:none;">
+      <div class="toc-section">
+        <div class="section-title">수학Ⅲ 목차</div>
+        <div class="toc-description">
+          수학Ⅲ에서 다루는 단원을 정리해 두는 공간입니다. 각 단원을 클릭하면 메인 화면이 각 단원의 내용이 정리된 화면으로 바뀝니다.
+        </div>
+
+        <div class="toc-grid">
+          <div class="unit-card">1단원</div>
+          <div class="unit-card">2단원</div>
+          <div class="unit-card">3단원</div>
+          <div class="unit-card">4단원</div>
+          <div class="unit-card">5단원</div>
+          <div class="unit-card">6단원</div>
+          <div class="unit-card">7단원</div>
+          <div class="unit-card">8단원</div>
+        </div>
+
+        <div class="home-link-hint">※ 위의 버튼을 눌러 다른 과목이나 홈 화면으로 이동할 수 있습니다.</div>
+      </div>
+    </div>
+
+    <!-- 수학Ⅲ: 단원 내용 -->
+    <div id="math3-unit-view" class="view-section" style="display:none;">
+      <div id="math3-unit-box" class="unit-full-box">
+        내용
+      </div>
+    </div>
+
+    <!-- 수학Ⅳ: 목차 -->
+    <div id="math4-toc-view" class="view-section" style="display:none;">
+      <div class="toc-section">
+        <div class="section-title">수학Ⅳ 목차</div>
+        <div class="toc-description">
+          수학Ⅳ에서 다루는 단원을 정리해 두는 공간입니다. 각 단원을 클릭하면 메인 화면이 각 단원의 내용이 정리된 화면으로 바뀝니다.
+        </div>
+
+        <div class="toc-grid">
+          <div class="unit-card">1단원</div>
+          <div class="unit-card">2단원</div>
+          <div class="unit-card">3단원</div>
+          <div class="unit-card">4단원</div>
+          <div class="unit-card">5단원</div>
+          <div class="unit-card">6단원</div>
+          <div class="unit-card">7단원</div>
+          <div class="unit-card">8단원</div>
+        </div>
+
+        <div class="home-link-hint">※ 위의 버튼을 눌러 다른 과목이나 홈 화면으로 이동할 수 있습니다.</div>
+      </div>
+    </div>
+
+    <!-- 수학Ⅳ: 단원 내용 -->
+    <div id="math4-unit-view" class="view-section" style="display:none;">
+      <div id="math4-unit-box" class="unit-full-box">
+        내용
+      </div>
+    </div>
+
+    <!-- 확률과 통계: 목차 -->
+    <div id="prob-toc-view" class="view-section" style="display:none;">
+      <div class="toc-section">
+        <div class="section-title">확률과 통계 목차</div>
+        <div class="toc-description">
+          확률과 통계에서 다루는 단원을 정리해 두는 공간입니다. 각 단원을 클릭하면 메인 화면이 각 단원의 내용이 정리된 화면으로 바뀝니다.
+        </div>
+
+        <div class="toc-grid">
+          <div class="unit-card">1단원</div>
+          <div class="unit-card">2단원</div>
+          <div class="unit-card">3단원</div>
+          <div class="unit-card">4단원</div>
+          <div class="unit-card">5단원</div>
+          <div class="unit-card">6단원</div>
+          <div class="unit-card">7단원</div>
+          <div class="unit-card">8단원</div>
+        </div>
+
+        <div class="home-link-hint">※ 위의 버튼을 눌러 다른 과목이나 홈 화면으로 이동할 수 있습니다.</div>
+      </div>
+    </div>
+
+    <!-- 확률과 통계: 단원 내용 -->
+    <div id="prob-unit-view" class="view-section" style="display:none;">
+      <div id="prob-unit-box" class="unit-full-box">
+        내용
+      </div>
+    </div>
+
+    <!-- 미적분과 해석기하학: 목차 -->
+    <div id="calcgeo-toc-view" class="view-section" style="display:none;">
+      <div class="toc-section">
+        <div class="section-title">미적분과 해석기하학 목차</div>
+        <div class="toc-description">
+          미적분과 해석기하학에서 다루는 단원을 정리해 두는 공간입니다. 각 단원을 클릭하면 메인 화면이 각 단원의 내용이 정리된 화면으로 바뀝니다.
+        </div>
+
+        <div class="toc-grid">
+          <div class="unit-card">1단원</div>
+          <div class="unit-card">2단원</div>
+          <div class="unit-card">3단원</div>
+          <div class="unit-card">4단원</div>
+          <div class="unit-card">5단원</div>
+          <div class="unit-card">6단원</div>
+          <div class="unit-card">7단원</div>
+          <div class="unit-card">8단원</div>
+        </div>
+
+        <div class="home-link-hint">※ 위의 버튼을 눌러 다른 과목이나 홈 화면으로 이동할 수 있습니다.</div>
+      </div>
+    </div>
+
+    <!-- 미적분과 해석기하학: 단원 내용 -->
+    <div id="calcgeo-unit-view" class="view-section" style="display:none;">
+      <div id="calcgeo-unit-box" class="unit-full-box">
+        내용
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ====== 오늘의 퀴즈 정답 체크 ======
+    const CORRECT_ANSWER = 7;
+
+    function checkAnswer() {
+      const input = document.getElementById("answer-input");
+      const feedback = document.getElementById("answer-feedback");
+      const raw = input.value.trim();
+
+      if (!raw) {
+        feedback.textContent = "답을 입력해 주세요.";
+        feedback.className = "answer-feedback wrong";
+        return;
+      }
+
+      const userValue = Number(raw);
+
+      if (!Number.isNaN(userValue) && Math.abs(userValue - CORRECT_ANSWER) < 1e-9) {
+        feedback.textContent = "정답입니다! 🎉";
+        feedback.className = "answer-feedback correct";
+      } else {
+        feedback.textContent = "아쉬워요. 다시 한 번 생각해 보세요.";
+        feedback.className = "answer-feedback wrong";
+      }
+    }
+
+    // ====== 화면 전환 ======
+    const views = [
+      "home-view",
+      "math1-toc-view", "math1-unit-view",
+      "math2-toc-view", "math2-unit-view",
+      "math3-toc-view", "math3-unit-view",
+      "math4-toc-view", "math4-unit-view",
+      "prob-toc-view",  "prob-unit-view",
+      "calcgeo-toc-view", "calcgeo-unit-view"
+    ];
+
+    const buttons = {
+      "btn-home":    "home-view",
+      "btn-math1":   "math1-toc-view",
+      "btn-math2":   "math2-toc-view",
+      "btn-math3":   "math3-toc-view",
+      "btn-math4":   "math4-toc-view",
+      "btn-prob":    "prob-toc-view",
+      "btn-calcgeo": "calcgeo-toc-view",
+    };
+
+    function showView(viewId) {
+      views.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.style.display = (id === viewId) ? "block" : "none";
+      });
+
+      Object.keys(buttons).forEach(btnId => {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+        if (buttons[btnId] === viewId) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+    }
+
+    const btnHome    = document.getElementById("btn-home");
+    const btnMath1   = document.getElementById("btn-math1");
+    const btnMath2   = document.getElementById("btn-math2");
+    const btnMath3   = document.getElementById("btn-math3");
+    const btnMath4   = document.getElementById("btn-math4");
+    const btnProb    = document.getElementById("btn-prob");
+    const btnCalcGeo = document.getElementById("btn-calcgeo");
+
+    if (btnHome) {
+      btnHome.addEventListener("click", () => {
+        showView("home-view");
+      });
+    }
+
+    if (btnMath1) {
+      btnMath1.addEventListener("click", () => {
+        showView("math1-toc-view");
+      });
+    }
+
+    if (btnMath2) {
+      btnMath2.addEventListener("click", () => {
+        showView("math2-toc-view");
+      });
+    }
+
+    if (btnMath3) {
+      btnMath3.addEventListener("click", () => {
+        showView("math3-toc-view");
+      });
+    }
+
+    if (btnMath4) {
+      btnMath4.addEventListener("click", () => {
+        showView("math4-toc-view");
+      });
+    }
+
+    if (btnProb) {
+      btnProb.addEventListener("click", () => {
+        showView("prob-toc-view");
+      });
+    }
+
+    if (btnCalcGeo) {
+      btnCalcGeo.addEventListener("click", () => {
+        showView("calcgeo-toc-view");
+      });
+    }
+
+    // ====== 공통: 단원 클릭 핸들러 생성 함수 ======
+    function attachUnitClickHandlers(tocSelector, boxId, subjectPrefix) {
+      const unitCards = document.querySelectorAll(`${tocSelector} .unit-card`);
+      const unitBox   = document.getElementById(boxId);
+
+      if (unitCards.length === 0 || !unitBox) return;
+
+      unitCards.forEach(card => {
+        card.addEventListener("click", () => {
+          const unitText = card.textContent.trim();           // "3단원"
+          const unitNum  = unitText.replace("단원","").trim(); // "3"
+          unitBox.textContent = `${subjectPrefix}-${unitNum}단원`;
+          showView(boxId.replace("-box", "-view"));
+        });
+      });
+    }
+
+    // 수학Ⅰ: 수학1-단원번호
+    attachUnitClickHandlers("#math1-toc-view", "math1-unit-box", "수학1");
+
+    // 수학Ⅱ: 수학2-단원번호
+    attachUnitClickHandlers("#math2-toc-view", "math2-unit-box", "수학2");
+
+    // 수학Ⅲ: 수학3-단원번호
+    attachUnitClickHandlers("#math3-toc-view", "math3-unit-box", "수학3");
+
+    // 수학Ⅳ: 수학4-단원번호
+    attachUnitClickHandlers("#math4-toc-view", "math4-unit-box", "수학4");
+
+    // 확률과 통계
+    attachUnitClickHandlers("#prob-toc-view", "prob-unit-box", "확률과 통계");
+
+    // 미적분과 해석기하학
+    attachUnitClickHandlers("#calcgeo-toc-view", "calcgeo-unit-box", "미적분과 해석기하학");
+
+    // ====== 로고 7번 클릭 이스터에그 ======
+    let logoClickCount = 0;
+    let logoClickTimer = null;
+    const EASTER_EGG_URL = "https://sasamath.com/blog/";
+
+    function resetLogoClicks() {
+      logoClickCount = 0;
+      if (logoClickTimer) {
+        clearTimeout(logoTimer);
+        logoClickTimer = null;
+      }
+    }
+
+    function onLogoClick() {
+      logoClickCount++;
+
+      if (logoClickCount === 1) {
+        logoClickTimer = setTimeout(resetLogoClicks, 5000);
+      }
+
+      if (logoClickCount >= 7) {
+        resetLogoClicks();
+        window.location.href = EASTER_EGG_URL;
+      }
+    }
+
+    const logoEl = document.getElementById("site-logo");
+    if (logoEl) {
+      logoEl.addEventListener("click", onLogoClick);
+    }
+
+    // 처음 진입 시 홈 화면
+    showView("home-view");
+  </script>
+</body>
+</html>
