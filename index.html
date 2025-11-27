@@ -14,6 +14,11 @@
   >
 
   <style>
+    /* 공통: 박스 사이즈 계산 안정화 */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     /* 스크롤바가 있든 없든 레이아웃이 안 흔들리도록 */
     html {
       overflow-y: scroll;
@@ -65,6 +70,7 @@
       letter-spacing: 0.16em;
       color: #0f172a;
       text-transform: uppercase;
+      text-align: center;
     }
 
     /* 두 번째 띠: 과목 버튼 */
@@ -118,6 +124,7 @@
       font-weight: 600;
       cursor: pointer;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+      white-space: nowrap;
     }
 
     .subject-icon:hover {
@@ -335,6 +342,7 @@
       color: #0f172a;
       width: 100%;
       margin: 0 auto;
+      text-align: center;
     }
 
     /* 제작자 정보 카드 (홈 화면 맨 아래) */
@@ -364,6 +372,97 @@
     .creator-value {
       flex: 1;
       color: #111827;
+    }
+
+    /* ============================
+       모바일/태블릿 반응형 스타일
+       ============================ */
+
+    /* 태블릿 & 작은 화면 */
+    @media (max-width: 768px) {
+      .header-inner {
+        padding: 0 16px;
+      }
+
+      .logo {
+        height: 44px;
+        left: 10px;
+      }
+
+      .site-title {
+        font-size: 1.7rem;
+        letter-spacing: 0.12em;
+      }
+
+      .icon-bar-inner {
+        padding: 0 12px;
+      }
+
+      .subject-icon {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+      }
+
+      main {
+        padding: 12px 0 24px;
+      }
+
+      .view-section {
+        width: 100%;
+        margin-top: 12px;
+      }
+
+      .intro-text {
+        padding: 16px 12px;
+        font-size: 0.9rem;
+      }
+
+      .today-article,
+      .today-problem,
+      .creator-card,
+      .toc-section {
+        padding: 14px 12px 16px;
+      }
+
+      .article-body {
+        font-size: 0.9rem;
+      }
+
+      .unit-full-box {
+        padding: 28px 16px;
+        font-size: 1.05rem;
+        min-height: 200px;
+      }
+    }
+
+    /* 아주 작은 폰 화면 (예: 360~400px) */
+    @media (max-width: 480px) {
+      .site-title {
+        font-size: 1.4rem;
+        letter-spacing: 0.08em;
+      }
+
+      .logo {
+        height: 40px;
+        left: 8px;
+      }
+
+      .intro-text {
+        font-size: 0.88rem;
+      }
+
+      .subject-icon {
+        font-size: 0.78rem;
+        padding: 4px 8px;
+      }
+
+      .article-body {
+        font-size: 0.88rem;
+      }
+
+      .section-title {
+        font-size: 0.95rem;
+      }
     }
   </style>
 </head>
