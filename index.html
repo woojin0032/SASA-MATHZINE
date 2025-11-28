@@ -5,7 +5,6 @@
   <title>SASA MATHZINE</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- 예쁜 한글 폰트: Noto Sans KR + 타이틀용 Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -18,7 +17,7 @@
       box-sizing: border-box;
     }
 
-    /* 스크롤바가 있든 없든 레이아웃이 안 흔들리도록 */
+    /* 레이아웃이 안 흔들리도록 */
     html {
       overflow-y: scroll;
       scrollbar-gutter: stable;
@@ -299,7 +298,7 @@
       color: #6b7280;
     }
 
-    /* 목차 단원 카드 (세로배치 공통) */
+    /* 목차 단원 카드 */
     .toc-grid {
       display: flex;
       flex-direction: column;
@@ -415,7 +414,7 @@
         padding: 12px 0 24px;
       }
 
-      /* 여기서 내용 폭 제한 + 좌우 여백 */
+      /* 내용 폭 제한 + 좌우 여백 */
       .view-section {
         width: 100%;
         max-width: 640px;
@@ -446,7 +445,7 @@
       }
     }
 
-    /* 아주 작은 폰 화면 (예: 360~400px) */
+    /* 아주 작은 폰 화면 */
     @media (max-width: 480px) {
       .site-title {
         font-size: 1.4rem;
