@@ -28,6 +28,8 @@
       margin: 0;
       padding: 0;
       height: 100%;
+      width: 100%;
+      overflow-x: hidden; /* ✅ 옆으로 넘치는 것 통째로 막기 */
     }
 
     body {
@@ -184,6 +186,8 @@
       max-width: 900px;
       margin: 8px auto 0;
       text-align: left;
+      word-break: break-word;      /* ✅ 긴 구분선 같은 것도 강제로 줄바꿈 */
+      overflow-wrap: break-word;   /* ✅ 혹시 모를 긴 문자열도 강제 줄바꿈 */
     }
 
     .article-image {
@@ -415,7 +419,7 @@
         padding: 12px 0 24px;
       }
 
-      /* 여기서 내용 폭 제한 + 좌우 여백 */
+      /* 내용 폭 제한 + 좌우 여백 */
       .view-section {
         width: 100%;
         max-width: 640px;
@@ -674,7 +678,7 @@
     </div>
 
     <!-- 수학Ⅱ: 단원 내용 -->
-    <div id="math2-unit-view" class="view-section" style="display:none;">
+    <div id="math2-unit-view" class="view-section" style="display:none%;">
       <div id="math2-unit-box" class="unit-full-box">
         내용
       </div>
