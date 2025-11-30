@@ -473,6 +473,25 @@
         font-size: 0.95rem;
       }
     }
+#help-container {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 1000;
+  text-align: left;
+}
+
+#help-text {
+  display: none;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  max-width: 400px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
   </style>
 </head>
 <body>
@@ -505,7 +524,7 @@
         이 사이트는 “정답만 빨리 찾는 공부”가 아니라, 왜 이런 정의를 쓰는지, 어떻게 생각을 확장할 수 있는지를 함께 고민하는 것을 목표로 하며,<br>
         오늘의 퀴즈, 단원별 개념 정리, 간단한 확인 문제를 통해 스스로 이해한 내용을 점검하고, 친구들과 함께 참고할 수 있는 우리 학교의<br>
         온라인 수학 신문 사이트 및 자료실이 되는 것을 꿈꿉니다.
-      </div>
+    </div>
 
       <!-- 오늘의 신문 -->
       <div class="today-article">
@@ -796,7 +815,19 @@
       </div>
     </div>
   </main>
-
+  
+  <div id="help-container">
+    <button id="help-btn" class="subject-icon" type="button">사이트 활용 도움말</button>
+    <div id="help-text">
+      <ul>
+        <li>홈: 오늘의 기사, 퀴즈, 제작자 정보</li>
+        <li>과목 버튼: 수학Ⅰ~Ⅳ, 확률과 통계, 미적분과 해석기하학 자료 보기</li>
+        <li>단원 선택: 개념 정리, 확인 문제, 심화 탐구 자료</li>
+        <li>오늘의 퀴즈: 답안 입력 후 정답 확인하기</li>
+        <li>추천 콘텐츠: 오늘의 신문 → 오늘의 퀴즈 → 과목 학습</li>
+      </ul>
+    </div>
+  </div>
   <script>
     // ====== 오늘의 퀴즈 정답 체크 ======
     const CORRECT_ANSWER = 15;
@@ -980,6 +1011,14 @@
 
     // 처음 진입 시 홈 화면
     showView("home-view");
+  </script>
+  <script>
+    const helpBtn = document.getElementById('help-btn');
+    const helpText = document.getElementById('help-text');
+
+    helpBtn.addEventListener('click', () => {
+        helpText.style.display = helpText.style.display === 'none' ? 'block' : 'none';
+    });
   </script>
 </body>
 </html>
