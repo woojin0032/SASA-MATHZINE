@@ -674,7 +674,7 @@
         </div>
 
         <div class="toc-grid">
-          <div class="unit-card">1단원</div>
+          <div class="unit-card">1단원</div>ㅣ
           <div class="unit-card">2단원</div>
           <div class="unit-card">3단원</div>
           <div class="unit-card">4단원</div>
@@ -704,14 +704,14 @@
         </div>
 
         <div class="toc-grid">
-          <div class="unit-card">1단원</div>
-          <div class="unit-card">2단원</div>
-          <div class="unit-card">3단원</div>
-          <div class="unit-card">4단원</div>
-          <div class="unit-card">5단원</div>
-          <div class="unit-card">6단원</div>
-          <div class="unit-card">7단원</div>
-          <div class="unit-card">8단원</div>
+          <div class="unit-card">1단원 : 수열과 함수</div>
+          <div class="unit-card">2단원 : 미분과 도함수</div>
+          <div class="unit-card">3단원 : 적분</div>
+          <div class="unit-card">4단원 : 무한급수</div>
+          <div class="unit-card">5단원(부록) : 집합과 함수</div>
+          <div class="unit-card">6단원(부록) : 미적분학의 역사</div>
+          <div class="unit-card">7단원(부록) : 적분 공식 목록</div>
+          <div class="unit-card">8단원 : 찾아보기</div>
         </div>
 
         <div class="home-link-hint">※ 위의 버튼을 눌러 다른 과목이나 홈 화면으로 이동할 수 있습니다.</div>
@@ -943,40 +943,116 @@
       });
     }
 
-    // ====== 공통: 단원 클릭 핸들러 생성 함수 ======
-    function attachUnitClickHandlers(tocSelector, boxId, subjectPrefix) {
-      const unitCards = document.querySelectorAll(`${tocSelector} .unit-card`);
-      const unitBox   = document.getElementById(boxId);
+// ====== 공통: 단원 클릭 핸들러 생성 함수 ======
+function attachUnitClickHandlers(tocSelector, boxId, subjectPrefix, contentObj) {
+  const unitCards = document.querySelectorAll(`${tocSelector} .unit-card`);
+  const unitBox   = document.getElementById(boxId);
 
-      if (unitCards.length === 0 || !unitBox) return;
+  if (unitCards.length === 0 || !unitBox) return;
 
-      unitCards.forEach(card => {
-        card.addEventListener("click", () => {
-          const unitText = card.textContent.trim();           // "3단원"
-          const unitNum  = unitText.replace("단원","").trim(); // "3"
-          unitBox.textContent = `${subjectPrefix}-${unitNum}단원`;
-          showView(boxId.replace("-box", "-view"));
-        });
-      });
-    }
+  unitCards.forEach(card => {
+    card.addEventListener("click", () => {
+      const unitText = card.textContent.trim();
+      const unitNum = unitText.match(/^\d+/)[0]; // 단원 번호 숫자만 추출
+      // 단원 내용 넣기 (HTML 가능)
+      if(contentObj && contentObj[unitNum]) {
+        unitBox.innerHTML = contentObj[unitNum];
+      } else {
+        unitBox.innerHTML = `${subjectPrefix}-${unitNum}단원`;
+      }
 
-    // 수학Ⅰ: 수학1-단원번호
-    attachUnitClickHandlers("#math1-toc-view", "math1-unit-box", "수학1");
+      showView(boxId.replace("-box", "-view"));
+    });
+  });
+}
 
-    // 수학Ⅱ: 수학2-단원번호
-    attachUnitClickHandlers("#math2-toc-view", "math2-unit-box", "수학2");
+// ====== 단원 내용 객체 정의 ======
 
-    // 수학Ⅲ: 수학3-단원번호
-    attachUnitClickHandlers("#math3-toc-view", "math3-unit-box", "수학3");
+// 수학Ⅰ
+const math1Content = {
+  "1": "<p>수학Ⅰ 1단원 내</p>",
+  "2": "<p>수학Ⅰ 2단원 내용</p>",
+  "3": "<p>수학Ⅰ 3단원 내용</p>",
+  "4": "<p>수학Ⅰ 4단원 내용</p>",
+  "5": "<p>수학Ⅰ 5단원 내용</p>",
+  "6": "<p>수학Ⅰ 6단원 내용</p>",
+  "7": "<p>수학Ⅰ 7단원 내용</p>",
+  "8": "<p>수학Ⅰ 8단원 내용</p>"
+};
 
-    // 수학Ⅳ: 수학4-단원번호
-    attachUnitClickHandlers("#math4-toc-view", "math4-unit-box", "수학4");
+// 수학Ⅱ
+const math2Content = {
+  "1": "<p>수학Ⅱ 1단원 내용</p>",
+  "2": "<p>수학Ⅱ 2단원 내용</p>",
+  "3": "<p>수학Ⅱ 3단원 내용</p>",
+  "4": "<p>수학Ⅱ 4단원 내용</p>",
+  "5": "<p>수학Ⅱ 5단원 내용</p>",
+  "6": "<p>수학Ⅱ 6단원 내용</p>",
+  "7": "<p>수학Ⅱ 7단원 내용</p>",
+  "8": "<p>수학Ⅱ 8단원 내용</p>"
+};
 
-    // 확률과 통계
-    attachUnitClickHandlers("#prob-toc-view", "prob-unit-box", "확률과 통계");
+// 수학Ⅲ
+const math3Content = {
+  "1": `
+    <p></p>
+    <img id="unit-image" src="수열의_극한의_엄밀한_정의.png" alt="수열의 극한의 엄밀한 정의" class="unit-image" />`,
+  "2": "<p>여기에 수학3-2단원 '미분과 도함수' 내용</p>",
+  "3": "<p>여기에 수학3-3단원 '적분' 내용</p>",
+  "4": "<p>여기에 수학3-4단원 '무한급수' 내용</p>",
+  "5": "<p>여기에 수학3-5(부록) 단원 '집합과 함수' 내용</p>",
+  "6": "<p>여기에 수학3-6(부록) 단원 '미적분학의 역사' 내용</p>",
+  "7": "<p>여기에 수학3-7(부록) 단원 '적분 공식 목록' 내용</p>",
+  "8": "<p>여기에 수학3-8단원 '찾아보기' 내용</p>"
+};
 
-    // 미적분과 해석기하학
-    attachUnitClickHandlers("#calcgeo-toc-view", "calcgeo-unit-box", "미적분과 해석기하학");
+
+
+// 수학Ⅳ
+const math4Content = {
+  "1": "<p>수학Ⅳ 1단원 내용</p>",
+  "2": "<p>수학Ⅳ 2단원 내용</p>",
+  "3": "<p>수학Ⅳ 3단원 내용</p>",
+  "4": "<p>수학Ⅳ 4단원 내용</p>",
+  "5": "<p>수학Ⅳ 5단원 내용</p>",
+  "6": "<p>수학Ⅳ 6단원 내용</p>",
+  "7": "<p>수학Ⅳ 7단원 내용</p>",
+  "8": "<p>수학Ⅳ 8단원 내용</p>"
+};
+
+// 확률과 통계
+const probContent = {
+  "1": "<p>확률과 통계 1단원 내용</p>",
+  "2": "<p>확률과 통계 2단원 내용</p>",
+  "3": "<p>확률과 통계 3단원 내용</p>",
+  "4": "<p>확률과 통계 4단원 내용</p>",
+  "5": "<p>확률과 통계 5단원 내용</p>",
+  "6": "<p>확률과 통계 6단원 내용</p>",
+  "7": "<p>확률과 통계 7단원 내용</p>",
+  "8": "<p>확률과 통계 8단원 내용</p>"
+};
+
+// 미적분과 해석기하학
+const calcgeoContent = {
+  "1": "<p>미적분과 해석기하학 1단원 내용</p>",
+  "2": "<p>미적분과 해석기하학 2단원 내용</p>",
+  "3": "<p>미적분과 해석기하학 3단원 내용</p>",
+  "4": "<p>미적분과 해석기하학 4단원 내용</p>",
+  "5": "<p>미적분과 해석기하학 5단원 내용</p>",
+  "6": "<p>미적분과 해석기하학 6단원 내용</p>",
+  "7": "<p>미적분과 해석기하학 7단원 내용</p>",
+  "8": "<p>미적분과 해석기하학 8단원 내용</p>"
+};
+
+// ====== 단원 클릭 핸들러 연결 ======
+attachUnitClickHandlers("#math1-toc-view", "math1-unit-box", "수학1", math1Content);
+attachUnitClickHandlers("#math2-toc-view", "math2-unit-box", "수학2", math2Content);
+attachUnitClickHandlers("#math3-toc-view", "math3-unit-box", "수학3", math3Content);
+attachUnitClickHandlers("#math4-toc-view", "math4-unit-box", "수학4", math4Content);
+attachUnitClickHandlers("#prob-toc-view", "prob-unit-box", "확률과 통계", probContent);
+attachUnitClickHandlers("#calcgeo-toc-view", "calcgeo-unit-box", "미적분과 해석기하학", calcgeoContent);
+
+
 
     // ====== 로고 7번 클릭 이스터에그 ======
     let logoClickCount = 0;
